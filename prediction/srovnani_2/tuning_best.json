@@ -1,0 +1,17 @@
+{
+  "XGBoost": {
+    "learning_rate": 0.05,
+    "max_depth": 10,
+    "subsample": 0.7,
+    "colsample_bytree": 1.0,
+    "min_child_weight": 1,
+    "reg_alpha": 0.5,
+    "reg_lambda": 1.0
+  },
+  "CatBoost": {
+    "learning_rate": 0.08,
+    "depth": 10,
+    "l2_leaf_reg": 10.0,
+    "random_strength": 1.0
+  }
+}

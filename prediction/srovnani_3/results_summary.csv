@@ -1,0 +1,6 @@
+feature_set,model,mode,mae,rmse,mape
+univariate_v2,XGBoost,24h,21.35716,29.16802,13.227
+univariate,XGBoost,24h,22.56132,31.01564,14.041
+univariate,Ensemble_XGB_Cat,24h,22.57757,30.91321,14.356
+univariate,CatBoost,24h,23.11726,31.75419,14.972
+univariate_v2,CatBoost,24h,25.58883,35.29108,15.702

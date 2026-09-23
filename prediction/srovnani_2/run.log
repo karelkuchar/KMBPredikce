@@ -1,0 +1,140 @@
+
+======================================================================
+Feature set: univariate
+======================================================================
+train=53471  val=1344  test=2881  features=27
+
+-- Persistence (univariate) --
+   1step  MAE=8.00078  RMSE=11.38922  MAPE=4.702%
+   24h    MAE=33.24171  RMSE=44.40934  MAPE=18.722%
+   7d     MAE=38.63646  RMSE=49.29036  MAPE=22.175%
+   (1.9s)
+
+-- SeasonalNaive24h (univariate) --
+   1step  MAE=29.28113  RMSE=47.32368  MAPE=17.482%
+   24h    MAE=29.28113  RMSE=47.32368  MAPE=17.482%
+   7d     MAE=47.55651  RMSE=66.32512  MAPE=24.043%
+   (1.9s)
+
+-- LightGBM (univariate) --
+Training until validation scores don't improve for 150 rounds
+Early stopping, best iteration is:
+[193]	valid_0's l1: 6.71373
+   1step  MAE=5.99191  RMSE=8.31891  MAPE=3.55%
+   24h    MAE=24.3173  RMSE=33.11111  MAPE=14.792%
+   7d     MAE=26.79314  RMSE=34.52522  MAPE=16.977%
+   (5.9s)
+
+-- CatBoost (univariate) --
+   1step  MAE=6.11205  RMSE=8.55209  MAPE=3.596%
+   24h    MAE=23.11726  RMSE=31.75419  MAPE=14.972%
+   7d     MAE=27.74599  RMSE=35.63542  MAPE=18.111%
+   (13.3s)
+
+-- XGBoost (univariate) --
+   1step  MAE=6.08279  RMSE=8.42126  MAPE=3.624%
+   24h    MAE=22.56132  RMSE=31.01564  MAPE=14.041%
+   7d     MAE=25.22149  RMSE=32.8373  MAPE=16.067%
+   (17.4s)
+
+======================================================================
+Feature set: multivariate
+======================================================================
+train=53471  val=1344  test=2881  features=35
+
+-- Persistence (multivariate) --
+   1step  MAE=8.00078  RMSE=11.38922  MAPE=4.702%
+   24h    MAE=33.24171  RMSE=44.40934  MAPE=18.722%
+   7d     MAE=38.63646  RMSE=49.29036  MAPE=22.175%
+   (1.9s)
+
+-- SeasonalNaive24h (multivariate) --
+   1step  MAE=29.28113  RMSE=47.32368  MAPE=17.482%
+   24h    MAE=29.28113  RMSE=47.32368  MAPE=17.482%
+   7d     MAE=47.55651  RMSE=66.32512  MAPE=24.043%
+   (1.9s)
+
+-- LightGBM (multivariate) --
+Training until validation scores don't improve for 150 rounds
+Early stopping, best iteration is:
+[153]	valid_0's l1: 6.53394
+   1step  MAE=6.06266  RMSE=8.36451  MAPE=3.549%
+   24h    MAE=31.6313  RMSE=43.45547  MAPE=17.571%
+   7d     MAE=37.30079  RMSE=47.94826  MAPE=21.173%
+   (5.7s)
+
+-- CatBoost (multivariate) --
+   1step  MAE=6.27932  RMSE=8.75847  MAPE=3.649%
+   24h    MAE=30.16554  RMSE=41.22271  MAPE=16.852%
+   7d     MAE=34.62635  RMSE=44.57522  MAPE=19.833%
+   (17.9s)
+
+-- XGBoost (multivariate) --
+   1step  MAE=6.21889  RMSE=8.68923  MAPE=3.658%
+   24h    MAE=28.92008  RMSE=39.86378  MAPE=16.266%
+   7d     MAE=33.88142  RMSE=43.90712  MAPE=19.679%
+   (12.9s)
+
+======================================================================
+Feature set: multivariate_plus
+======================================================================
+train=53471  val=1344  test=2881  features=45
+
+-- Persistence (multivariate_plus) --
+   1step  MAE=8.00078  RMSE=11.38922  MAPE=4.702%
+   24h    MAE=33.24171  RMSE=44.40934  MAPE=18.722%
+   7d     MAE=38.63646  RMSE=49.29036  MAPE=22.175%
+   (1.9s)
+
+-- SeasonalNaive24h (multivariate_plus) --
+   1step  MAE=29.28113  RMSE=47.32368  MAPE=17.482%
+   24h    MAE=29.28113  RMSE=47.32368  MAPE=17.482%
+   7d     MAE=47.55651  RMSE=66.32512  MAPE=24.043%
+   (1.9s)
+
+-- LightGBM (multivariate_plus) --
+Training until validation scores don't improve for 150 rounds
+Early stopping, best iteration is:
+[349]	valid_0's l1: 6.53604
+   1step  MAE=5.95344  RMSE=8.29482  MAPE=3.528%
+   24h    MAE=32.06585  RMSE=43.35027  MAPE=18.012%
+   7d     MAE=37.7759  RMSE=48.53073  MAPE=21.608%
+   (7.3s)
+
+-- CatBoost (multivariate_plus) --
+   1step  MAE=6.11795  RMSE=8.43013  MAPE=3.588%
+   24h    MAE=32.15287  RMSE=43.59637  MAPE=17.988%
+   7d     MAE=37.86039  RMSE=48.87886  MAPE=21.565%
+   (23.0s)
+
+-- XGBoost (multivariate_plus) --
+   1step  MAE=6.00133  RMSE=8.33184  MAPE=3.553%
+   24h    MAE=31.16345  RMSE=42.19089  MAPE=17.583%
+   7d     MAE=36.93658  RMSE=47.59362  MAPE=21.078%
+   (21.6s)
+
+======================================================================
+SOUHRN (mode=24h, serazeno dle MAE):
+======================================================================
+      feature_set            model mode      mae     rmse   mape
+       univariate          XGBoost  24h 22.56132 31.01564 14.041
+       univariate         CatBoost  24h 23.11726 31.75419 14.972
+       univariate         LightGBM  24h 24.31730 33.11111 14.792
+     multivariate          XGBoost  24h 28.92008 39.86378 16.266
+     multivariate SeasonalNaive24h  24h 29.28113 47.32368 17.482
+multivariate_plus SeasonalNaive24h  24h 29.28113 47.32368 17.482
+       univariate SeasonalNaive24h  24h 29.28113 47.32368 17.482
+     multivariate         CatBoost  24h 30.16554 41.22271 16.852
+multivariate_plus          XGBoost  24h 31.16345 42.19089 17.583
+     multivariate         LightGBM  24h 31.63130 43.45547 17.571
+multivariate_plus         LightGBM  24h 32.06585 43.35027 18.012
+multivariate_plus         CatBoost  24h 32.15287 43.59637 17.988
+     multivariate      Persistence  24h 33.24171 44.40934 18.722
+multivariate_plus      Persistence  24h 33.24171 44.40934 18.722
+       univariate      Persistence  24h 33.24171 44.40934 18.722
+
+Ulozeno:
+  /home/kuchark/Desktop/kmb_predikce/prediction/srovnani_2/results_summary.csv
+  /home/kuchark/Desktop/kmb_predikce/prediction/srovnani_2/results_by_horizon.csv
+
+Celkovy cas: 2.3 min

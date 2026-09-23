@@ -1,0 +1,7 @@
+feature_set,model,mode,mae,rmse,mape
+multivariate,XGBoost_tuned,1step,6.2494,8.73756,3.7
+multivariate,XGBoost_tuned,24h,27.376,37.67155,15.519
+multivariate,XGBoost_tuned,7d,32.77179,42.43893,18.947
+multivariate,CatBoost_tuned,1step,6.42937,8.88924,3.788
+multivariate,CatBoost_tuned,24h,30.96359,42.52215,17.233
+multivariate,CatBoost_tuned,7d,36.05317,46.51021,20.586

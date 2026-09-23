@@ -1,0 +1,6 @@
+60d test: train=49247  val=1344  test=5761
+univariate_v2 + XGBoost, 24h(60d) MAE=23.29761  RMSE=32.55096  MAPE=15.39%
+univariate_v2 + XGBoost, staggered(30d) MAE=22.07774  (697 startu)
+
+Ulozeno: /home/kuchark/Desktop/kmb_predikce/prediction/srovnani_3/verify_v2_results.csv
+Celkovy cas: 1.6 min

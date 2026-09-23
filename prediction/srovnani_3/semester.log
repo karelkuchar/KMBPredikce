@@ -1,0 +1,26 @@
+
+======================================================================
+univariate + XGBoost
+======================================================================
+  univariate             30d  MAE=22.56132
+  univariate             staggered  MAE=22.17279  (697 startu)
+  univariate             60d  MAE=23.20107
+
+======================================================================
+univariate_semester + XGBoost
+======================================================================
+  univariate_semester    30d  MAE=20.12495
+  univariate_semester    staggered  MAE=20.82872  (697 startu)
+  univariate_semester    60d  MAE=22.25327
+
+======================================================================
+SOUHRN:
+======================================================================
+feature_set    univariate  univariate_semester
+mode                                          
+30d              22.56132             20.12495
+60d              23.20107             22.25327
+staggered_30d    22.17279             20.82872
+
+Ulozeno: /home/kuchark/Desktop/kmb_predikce/prediction/srovnani_3/semester_results.csv
+Celkovy cas: 3.2 min

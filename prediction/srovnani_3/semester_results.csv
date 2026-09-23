@@ -1,0 +1,7 @@
+feature_set,mode,mae,rmse,mape
+univariate,30d,22.56132,31.01564,14.041
+univariate,staggered_30d,22.17279,29.50015,13.681
+univariate,60d,23.20107,32.99755,15.497
+univariate_semester,30d,20.12495,27.62952,12.943
+univariate_semester,staggered_30d,20.82872,27.34096,13.121
+univariate_semester,60d,22.25327,31.00865,15.002

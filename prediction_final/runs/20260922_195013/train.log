@@ -1,0 +1,40 @@
+train=53471  val=1344  test=2881  features=27
+
+Random search (25 pokusu, cileno na 24h rekurzivni val MAE)...
+  trial 00/25  val_MAE_24h=23.038  (27.8s)  {'learning_rate': 0.02, 'max_depth': 4, 'subsample': 0.8, 'colsample_bytree': 0.7, 'min_child_weight': 3, 'reg_alpha': 0.1, 'reg_lambda': 0.5}
+  trial 01/25  val_MAE_24h=25.289  (13.2s)  {'learning_rate': 0.1, 'max_depth': 4, 'subsample': 1.0, 'colsample_bytree': 0.9, 'min_child_weight': 1, 'reg_alpha': 0.0, 'reg_lambda': 0.5}
+  trial 02/25  val_MAE_24h=21.200  (15.0s)  {'learning_rate': 0.03, 'max_depth': 5, 'subsample': 1.0, 'colsample_bytree': 1.0, 'min_child_weight': 1, 'reg_alpha': 0.1, 'reg_lambda': 5.0}
+  trial 03/25  val_MAE_24h=22.941  (13.0s)  {'learning_rate': 0.03, 'max_depth': 8, 'subsample': 1.0, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'reg_alpha': 0.1, 'reg_lambda': 5.0}
+  trial 04/25  val_MAE_24h=20.724  (8.0s)  {'learning_rate': 0.05, 'max_depth': 6, 'subsample': 0.7, 'colsample_bytree': 0.7, 'min_child_weight': 5, 'reg_alpha': 0.0, 'reg_lambda': 0.5}
+  trial 05/25  val_MAE_24h=23.797  (11.3s)  {'learning_rate': 0.08, 'max_depth': 4, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 5, 'reg_alpha': 0.0, 'reg_lambda': 5.0}
+  trial 06/25  val_MAE_24h=26.753  (6.8s)  {'learning_rate': 0.1, 'max_depth': 4, 'subsample': 0.9, 'colsample_bytree': 0.6, 'min_child_weight': 5, 'reg_alpha': 0.5, 'reg_lambda': 1.0}
+  trial 07/25  val_MAE_24h=23.305  (22.7s)  {'learning_rate': 0.02, 'max_depth': 4, 'subsample': 0.7, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'reg_alpha': 0.1, 'reg_lambda': 0.5}
+  trial 08/25  val_MAE_24h=21.815  (8.4s)  {'learning_rate': 0.08, 'max_depth': 6, 'subsample': 0.9, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'reg_alpha': 0.5, 'reg_lambda': 2.0}
+  trial 09/25  val_MAE_24h=23.637  (12.5s)  {'learning_rate': 0.03, 'max_depth': 6, 'subsample': 0.6, 'colsample_bytree': 1.0, 'min_child_weight': 3, 'reg_alpha': 0.1, 'reg_lambda': 1.0}
+  trial 10/25  val_MAE_24h=21.791  (13.6s)  {'learning_rate': 0.08, 'max_depth': 8, 'subsample': 0.8, 'colsample_bytree': 1.0, 'min_child_weight': 3, 'reg_alpha': 0.5, 'reg_lambda': 0.5}
+  trial 11/25  val_MAE_24h=23.818  (14.0s)  {'learning_rate': 0.03, 'max_depth': 4, 'subsample': 0.8, 'colsample_bytree': 0.9, 'min_child_weight': 5, 'reg_alpha': 0.0, 'reg_lambda': 1.0}
+  trial 12/25  val_MAE_24h=19.313  (7.0s)  {'learning_rate': 0.1, 'max_depth': 6, 'subsample': 0.7, 'colsample_bytree': 0.9, 'min_child_weight': 10, 'reg_alpha': 1.0, 'reg_lambda': 1.0}
+  trial 13/25  val_MAE_24h=23.471  (9.8s)  {'learning_rate': 0.05, 'max_depth': 5, 'subsample': 0.7, 'colsample_bytree': 1.0, 'min_child_weight': 5, 'reg_alpha': 1.0, 'reg_lambda': 5.0}
+  trial 14/25  val_MAE_24h=26.574  (6.3s)  {'learning_rate': 0.05, 'max_depth': 5, 'subsample': 0.7, 'colsample_bytree': 1.0, 'min_child_weight': 10, 'reg_alpha': 0.0, 'reg_lambda': 0.5}
+  trial 15/25  val_MAE_24h=25.098  (13.1s)  {'learning_rate': 0.02, 'max_depth': 5, 'subsample': 0.7, 'colsample_bytree': 0.9, 'min_child_weight': 1, 'reg_alpha': 1.0, 'reg_lambda': 5.0}
+  trial 16/25  val_MAE_24h=24.049  (14.0s)  {'learning_rate': 0.1, 'max_depth': 8, 'subsample': 1.0, 'colsample_bytree': 0.8, 'min_child_weight': 1, 'reg_alpha': 0.0, 'reg_lambda': 2.0}
+  trial 17/25  val_MAE_24h=24.593  (11.0s)  {'learning_rate': 0.05, 'max_depth': 4, 'subsample': 0.8, 'colsample_bytree': 0.9, 'min_child_weight': 3, 'reg_alpha': 1.0, 'reg_lambda': 0.5}
+  trial 18/25  val_MAE_24h=22.062  (12.9s)  {'learning_rate': 0.05, 'max_depth': 10, 'subsample': 0.7, 'colsample_bytree': 1.0, 'min_child_weight': 1, 'reg_alpha': 0.5, 'reg_lambda': 1.0}
+  trial 19/25  val_MAE_24h=24.632  (8.7s)  {'learning_rate': 0.03, 'max_depth': 6, 'subsample': 0.7, 'colsample_bytree': 1.0, 'min_child_weight': 1, 'reg_alpha': 0.5, 'reg_lambda': 5.0}
+  trial 20/25  val_MAE_24h=24.186  (24.3s)  {'learning_rate': 0.02, 'max_depth': 4, 'subsample': 0.8, 'colsample_bytree': 0.8, 'min_child_weight': 3, 'reg_alpha': 0.0, 'reg_lambda': 1.0}
+  trial 21/25  val_MAE_24h=29.695  (4.4s)  {'learning_rate': 0.1, 'max_depth': 4, 'subsample': 0.6, 'colsample_bytree': 0.9, 'min_child_weight': 1, 'reg_alpha': 0.1, 'reg_lambda': 1.0}
+  trial 22/25  val_MAE_24h=22.751  (10.2s)  {'learning_rate': 0.08, 'max_depth': 10, 'subsample': 0.7, 'colsample_bytree': 0.8, 'min_child_weight': 10, 'reg_alpha': 0.1, 'reg_lambda': 1.0}
+  trial 23/25  val_MAE_24h=24.609  (10.0s)  {'learning_rate': 0.05, 'max_depth': 8, 'subsample': 0.8, 'colsample_bytree': 0.9, 'min_child_weight': 10, 'reg_alpha': 0.0, 'reg_lambda': 1.0}
+  trial 24/25  val_MAE_24h=20.565  (18.2s)  {'learning_rate': 0.03, 'max_depth': 4, 'subsample': 0.8, 'colsample_bytree': 0.6, 'min_child_weight': 3, 'reg_alpha': 0.1, 'reg_lambda': 0.5}
+
+Vitezne hyperparametry (val 24h MAE=19.313): {'learning_rate': 0.1, 'max_depth': 6, 'subsample': 0.7, 'colsample_bytree': 0.9, 'min_child_weight': 10, 'reg_alpha': 1.0, 'reg_lambda': 1.0}
+Test 24h MAE=23.05 kW  RMSE=32.001 kW  MAPE=14.266%
+
+Ulozeno do /home/kuchark/Desktop/kmb_predikce/prediction_final/runs/20260922_195013:
+  model.json
+  best_hyperparams.json
+  metadata.json
+  tuning_trials.csv
+  train.log
+runs/latest.json aktualizovan na '20260922_195013'
+Celkovy cas: 5.3 min

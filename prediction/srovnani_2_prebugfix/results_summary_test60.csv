@@ -1,0 +1,7 @@
+feature_set,model,mode,test_days,mae,rmse,mape
+multivariate,XGBoost_tuned,24h,60,24.91259,35.41681,15.28
+multivariate,XGBoost_default,24h,60,25.1549,35.74801,15.361
+multivariate,CatBoost_tuned,24h,60,27.41839,38.85077,16.446
+multivariate,CatBoost_default,24h,60,27.72056,39.28465,16.682
+multivariate,SeasonalNaive24h,24h,60,28.53335,44.84777,18.303
+multivariate,Persistence,24h,60,29.97289,41.16779,18.149

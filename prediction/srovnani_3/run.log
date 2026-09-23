@@ -1,0 +1,28 @@
+
+======================================================================
+Feature set: univariate
+======================================================================
+train=53471  val=1344  test=2881  features=27
+   XGBoost    24h MAE=22.56132  RMSE=31.01564  MAPE=14.041%  (17.2s)
+   CatBoost   24h MAE=23.11726  RMSE=31.75419  MAPE=14.972%  (10.0s)
+   Ensemble   24h MAE=22.57757  RMSE=30.91321  MAPE=14.356%
+
+======================================================================
+Feature set: univariate_v2
+======================================================================
+train=52127  val=1344  test=2881  features=29
+   XGBoost    24h MAE=21.35716  RMSE=29.16802  MAPE=13.227%  (15.1s)
+   CatBoost   24h MAE=25.58883  RMSE=35.29108  MAPE=15.702%  (11.1s)
+
+======================================================================
+SOUHRN (serazeno dle MAE):
+======================================================================
+  feature_set            model mode      mae     rmse   mape
+univariate_v2          XGBoost  24h 21.35716 29.16802 13.227
+   univariate          XGBoost  24h 22.56132 31.01564 14.041
+   univariate Ensemble_XGB_Cat  24h 22.57757 30.91321 14.356
+   univariate         CatBoost  24h 23.11726 31.75419 14.972
+univariate_v2         CatBoost  24h 25.58883 35.29108 15.702
+
+Ulozeno: /home/kuchark/Desktop/kmb_predikce/prediction/srovnani_3/results_summary.csv
+Celkovy cas: 0.9 min

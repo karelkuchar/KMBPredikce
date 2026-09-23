@@ -1,0 +1,22 @@
+train=53471  val=1344  test=2881
+
+Alpha search na validaci:
+  alpha=0.0  val_MAE=25.052
+  alpha=0.1  val_MAE=23.340
+  alpha=0.2  val_MAE=21.798
+  alpha=0.3  val_MAE=20.440
+  alpha=0.4  val_MAE=19.291
+  alpha=0.5  val_MAE=18.360
+  alpha=0.6  val_MAE=17.703
+  alpha=0.7  val_MAE=17.340
+  alpha=0.8  val_MAE=17.332
+  alpha=0.9  val_MAE=17.685
+  alpha=1.0  val_MAE=18.534
+-> nejlepsi alpha=0.8 (val_MAE=17.332)
+
+30d blend MAE=19.36747  (nasazeny blend bez semester: 21.135)
+staggered blend MAE=20.12364  (nasazeny blend bez semester: 20.830)
+60d blend MAE=20.95107  (nasazeny blend bez semester: 21.403)
+
+Ulozeno: /home/kuchark/Desktop/kmb_predikce/prediction/srovnani_3/blend_semester_results.csv
+Celkovy cas: 1.9 min

@@ -1,0 +1,21 @@
+
+======================================================================
+univariate + XGBoost
+======================================================================
+   periodic  done (3.1s), MAE overall=22.56132
+   staggered done (68.4s), 697 startu, MAE overall=22.17279
+
+======================================================================
+multivariate + XGBoost
+======================================================================
+   periodic  done (2.9s), MAE overall=28.92008
+   staggered done (63.9s), 697 startu, MAE overall=31.50602
+
+======================================================================
+multivariate + CatBoost
+======================================================================
+   periodic  done (3.8s), MAE overall=30.16554
+   staggered done (86.2s), 697 startu, MAE overall=31.41384
+
+Ulozeno: /home/kuchark/Desktop/kmb_predikce/prediction/srovnani_2/results_by_horizon_staggered.csv
+Celkovy cas: 4.4 min

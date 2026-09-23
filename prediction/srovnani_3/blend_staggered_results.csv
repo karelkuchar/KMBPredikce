@@ -1,0 +1,4 @@
+model,mae,rmse,mape
+XGBoost_pure,22.17279,29.50015,13.681
+SeasonalNaive24h,28.94571,46.67545,17.385
+Blend_alpha0.6,20.82974,29.11575,13.014

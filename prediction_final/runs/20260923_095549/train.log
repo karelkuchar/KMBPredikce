@@ -1,0 +1,27 @@
+TEST_DAYS=60
+train=50591  val=1344  test=5761  features=28
+
+Trenink XGBoost (vychozi hyperparametry): {'n_estimators': 3000, 'learning_rate': 0.05, 'max_depth': 8, 'subsample': 0.8, 'colsample_bytree': 0.9, 'objective': 'reg:absoluteerror', 'random_state': 42, 'early_stopping_rounds': 150, 'eval_metric': 'mae'}
+
+Alpha search (blend = alpha*XGBoost + (1-alpha)*SeasonalNaive24h, kazdy jako nezavisla rekurze) na validaci:
+  alpha=0.0  val_MAE_24h=37.559
+  alpha=0.1  val_MAE_24h=34.923
+  alpha=0.2  val_MAE_24h=32.429
+  alpha=0.3  val_MAE_24h=30.046
+  alpha=0.4  val_MAE_24h=27.820
+  alpha=0.5  val_MAE_24h=25.794
+  alpha=0.6  val_MAE_24h=23.932
+  alpha=0.7  val_MAE_24h=22.249
+  alpha=0.8  val_MAE_24h=20.867
+  alpha=0.9  val_MAE_24h=19.998
+  alpha=1.0  val_MAE_24h=19.570
+-> nejlepsi alpha=1.0 (val_MAE=19.570)
+Test 24h MAE=22.253 kW  RMSE=31.009 kW  MAPE=15.002%  (blend alpha=1.0)
+
+Ulozeno do /home/kuchark/Desktop/kmb_predikce/prediction_final/runs/20260923_095549:
+  model.json
+  best_hyperparams.json
+  metadata.json
+  train.log
+runs/latest.json aktualizovan na '20260923_095549'
+Celkovy cas: 0.4 min

@@ -1,0 +1,7 @@
+staggered (697 startu):
+  XGBoost pure       MAE=22.17279
+  SeasonalNaive24h   MAE=28.94571
+  Blend (alpha=0.6) MAE=20.82974
+
+Ulozeno: /home/kuchark/Desktop/kmb_predikce/prediction/srovnani_3/blend_staggered_results.csv
+Celkovy cas: 1.7 min

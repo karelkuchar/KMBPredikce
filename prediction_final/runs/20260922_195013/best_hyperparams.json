@@ -1,0 +1,15 @@
+{
+  "n_estimators": 3000,
+  "objective": "reg:absoluteerror",
+  "random_state": 42,
+  "early_stopping_rounds": 150,
+  "eval_metric": "mae",
+  "learning_rate": 0.1,
+  "max_depth": 6,
+  "subsample": 0.7,
+  "colsample_bytree": 0.9,
+  "min_child_weight": 10,
+  "reg_alpha": 1.0,
+  "reg_lambda": 1.0,
+  "val_mae_24h_kW": 19.313
+}

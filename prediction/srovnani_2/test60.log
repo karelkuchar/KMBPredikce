@@ -1,0 +1,10 @@
+TEST_DAYS=60  train=50591  val=1344  test=5761
+XGBoost_default      24h(60d) MAE=25.06842  RMSE=35.29713  MAPE=15.316%  (24.3s)
+XGBoost_tuned        24h(60d) MAE=25.52778  RMSE=36.15131  MAPE=15.625%  (20.9s)
+CatBoost_default     24h(60d) MAE=27.91658  RMSE=39.40343  MAPE=16.783%  (13.6s)
+CatBoost_tuned       24h(60d) MAE=27.52271  RMSE=38.88538  MAPE=16.493%  (19.9s)
+Persistence          24h(60d) MAE=29.90864  RMSE=41.26992  MAPE=18.079%  (1.8s)
+SeasonalNaive24h     24h(60d) MAE=28.53335  RMSE=44.84777  MAPE=18.303%  (1.8s)
+
+Ulozeno: /home/kuchark/Desktop/kmb_predikce/prediction/srovnani_2/results_summary_test60.csv
+Celkovy cas: 1.4 min
