@@ -1,0 +1,47 @@
+services:
+  influxdb:
+    image: influxdb:2
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=changeme123
+      - DOCKER_INFLUXDB_INIT_ORG=kmb
+      - DOCKER_INFLUXDB_INIT_BUCKET=predikce
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=dev-token-zmen-v-produkci
+
+  predikce-api:
+    build:
+      context: ..
+      dockerfile: kontejner/Dockerfile.api
+      args:
+        RUN_ID: ${RUN_ID}
+    ports:
+      - "8000:8000"
+    # zadny volume s daty/modelem - vsechno je zabalene primo v image,
+    # aby byl kontejner samostatne prenositelny
+
+  ingest:
+    build:
+      context: .
+      dockerfile: Dockerfile.ingest
+    depends_on:
+      - influxdb
+      - predikce-api
+    ports:
+      - "8001:8001"   # sem zvenku posila data ten, kdo mereni ma (POST /ingest)
+    environment:
+      - API_URL=http://predikce-api:8000/predict
+      - INFLUX_URL=http://influxdb:8086
+      - INFLUX_TOKEN=dev-token-zmen-v-produkci
+      - INFLUX_ORG=kmb
+      - INFLUX_BUCKET=predikce
+      - METER_NAME=T12 P1.1
+      - HISTORY_HOURS=48
+      - MIN_HISTORY_STEPS=192
+
+volumes:
+  influxdb_data:

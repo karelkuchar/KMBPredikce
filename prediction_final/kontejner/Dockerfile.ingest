@@ -1,0 +1,16 @@
+# Ingest sluzba - jediny kontejner, ktery pise do InfluxDB. Nema zadna
+# vlastni data - prijima je zvenku (POST /ingest, viz ingest.py hlavicka).
+#
+# Build (z prediction_final/kontejner/):
+#   docker build -f Dockerfile.ingest -t predikce-ingest .
+
+FROM python:3.11-slim
+
+WORKDIR /app
+COPY requirements-ingest.txt .
+RUN pip install --no-cache-dir -r requirements-ingest.txt
+
+COPY ingest.py .
+
+EXPOSE 8001
+CMD ["python", "-m", "uvicorn", "ingest:app", "--host", "0.0.0.0", "--port", "8001"]

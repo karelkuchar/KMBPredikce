@@ -1,0 +1,26 @@
+# Obraz predikcniho API - MODEL JE ZABALENY UVNITR (ne mountovany zvenku),
+# protoze tento kontejner se bude presouvat mimo tento stroj/sit. Zadna
+# zavislost na Influxu ani na zbytku repa - jen prediction_final/api/ +
+# jeden konkretni vybrany beh z prediction_final/runs/.
+#
+# Build (spustit z prediction_final/, ne z kontejner/ - viz build_api.sh):
+#   docker build -f kontejner/Dockerfile.api --build-arg RUN_ID=<run_id> -t predikce-api:<run_id> .
+
+FROM python:3.11-slim
+
+WORKDIR /app/api
+
+COPY kontejner/requirements-api.txt .
+RUN pip install --no-cache-dir -r requirements-api.txt
+
+# vlastni kod api slozky (uz je to samostatna, nezavisla kopie - viz api/common.py hlavicka)
+COPY api/api.py api/common.py ./
+
+# jeden konkretni natrenovany beh, zabaleny primo do image
+ARG RUN_ID
+RUN test -n "$RUN_ID" || (echo "chybi --build-arg RUN_ID=<run_id> (viz runs/latest.json)" && exit 1)
+COPY runs/${RUN_ID}/ /app/runs/${RUN_ID}/
+RUN mkdir -p /app/runs && printf '{"latest_run": "%s"}' "$RUN_ID" > /app/runs/latest.json
+
+EXPOSE 8000
+CMD ["python", "-m", "uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
