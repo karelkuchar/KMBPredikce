@@ -29,24 +29,50 @@ volající (má data) --POST /ingest--> [ingest] --zapíše "skutečnost"--> [in
                                          +--zapíše "predikce"--> [influxdb]
 ```
 
-## Základní pojmy (pokud jsi Docker ještě nepoužíval)
+## Základní pojmy (pokud jste Docker ještě nepoužívali)
 
 - **Image** = "zabalený" balíček (kód + Python + knihovny), postavený z
   `Dockerfile`. Image sama o sobě neběží, je to jen šablona.
-- **Kontejner** = běžící instance image. Z jedné image jich můžeš spustit
+- **Kontejner** = běžící instance image. Z jedné image jich lze spustit
   víc najednou.
 - **`docker build`** = postaví image z Dockerfile.
 - **`docker run`** = spustí jeden kontejner z image.
-- **`docker compose`** = spustí/postaví víc kontejnerů najednou podle
+- **`docker-compose`** = spustí/postaví víc kontejnerů najednou podle
   `docker-compose.yml` (přesně náš případ — 3 služby).
 - **Volume** = trvalé úložiště mimo kontejner. Kontejner sám je "jednorázový"
-  (smažeš ho, zmizí i to, co si zapsal dovnitř) — Influx databáze proto musí
+  (po smazání zmizí i to, co si zapsal dovnitř) — Influx databáze proto musí
   být ve volume (`influxdb_data`), jinak by při každém restartu zmizela.
 
-## Spuštění
+## Instalace (předpoklady)
 
-Nejdřív ověř, že máš `docker` a plugin `docker compose` (na tomto stroji
-zatím chybí — viz "Co ještě chybí" níže).
+Potřeba jsou dva nástroje: `docker` a `docker-compose`.
+
+```bash
+docker --version           # overeni, ze uz je docker nainstalovany
+docker-compose --version   # a docker-compose take
+```
+
+Pokud `docker` chybí:
+```bash
+sudo apt install docker.io
+```
+
+Pokud chybí `docker-compose` (na Debianu je moderní `docker compose` jako
+podpříkaz jen v Dockerově vlastním APT repozitáři, který by bylo nutné
+zvlášť přidávat — jednodušší je starší samostatný `docker-compose` přímo
+z Debian repozitářů):
+```bash
+sudo apt install docker-compose
+```
+
+Aby navíc šel `docker` používat bez `sudo` u každého příkazu:
+```bash
+sudo usermod -aG docker $USER
+```
+(pak je potřeba se odhlásit/znovu přihlásit, ať se to projeví — do té doby
+je nutné psát `sudo docker-compose ...` / `sudo ./up.sh`).
+
+## Spuštění
 
 ```bash
 cd prediction_final/kontejner
@@ -61,21 +87,12 @@ cd prediction_final/kontejner
 **Užitečné příkazy, jakmile to běží:**
 
 ```bash
-docker compose ps                    # co běží
-docker compose logs -f ingest        # živé logy jednoho kontejneru (Ctrl+C = jen odpojí sledování)
-docker compose logs -f predikce-api
-docker compose exec predikce-api sh  # shell dovnitř běžícího kontejneru (ladění)
-docker compose down                  # zastaví a smaže kontejnery (volume s daty Influxu zůstane)
-docker compose down -v               # totéž + smaže i volume (ztratíš historii v Influxu!)
-```
-
-**Test ručně, že vše funguje** (jakmile stack běží — pošli pár měření na
-`ingest`, zatím to bude hlásit "nedostatek historie", dokud jich nebude
-aspoň 192 = 48h):
-
-```bash
-curl -X POST http://localhost:8001/ingest -H "Content-Type: application/json" \
-  -d '{"readings": [{"time": "2026-09-23T10:00:00Z", "value_kW": 123.4}]}'
+docker-compose ps                    # co běží
+docker-compose logs -f ingest        # živé logy jednoho kontejneru (Ctrl+C = jen odpojí sledování)
+docker-compose logs -f predikce-api
+docker-compose exec predikce-api sh  # shell dovnitř běžícího kontejneru (ladění)
+docker-compose down                  # zastaví a smaže kontejnery (volume s daty Influxu zůstane)
+docker-compose down -v               # totéž + smaže i volume (ztratíš historii v Influxu!)
 ```
 
 Přímý přístup k API a Influxu:
@@ -98,6 +115,56 @@ cd prediction_final/kontejner
 
 `ingest` a `influxdb` přestavovat netřeba, ty na modelu nezávisí.
 
+## Vyzkoušení nanečisto (a úklid)
+
+Postup pro první vyzkoušení, včetně toho, jak po sobě všechno zase smazat.
+Předpokládá nainstalované `docker` + `docker-compose` (viz "Instalace" výš).
+
+**1. Spusťte stack:**
+```bash
+cd prediction_final/kontejner
+./up.sh -d
+docker-compose ps          # overeni, ze bezi vsechny 3 kontejnery (predikce-api, influxdb, ingest)
+```
+
+**2. Otestujte `predikce-api` samostatně** (ověří, že model uvnitř image funguje):
+```bash
+curl -X POST http://localhost:8000/predict \
+  -H "Content-Type: application/json" \
+  -d @../api/example_json/request_short.json | head -c 300
+```
+Použitý JSON je existující reálný testovací příklad
+(`api/example_json/request_short.json`, přesně 192 záznamů = 48h) — stejný
+formát `{"readings": [...]}` platí i pro `ingest`.
+
+**3. Otestujte celý tok přes `ingest`** (uloží do Influxu skutečnost i predikci):
+```bash
+curl -X POST http://localhost:8001/ingest \
+  -H "Content-Type: application/json" \
+  -d @../api/example_json/request_short.json
+```
+Odpověď by měla mít `"prediction_made": true` (rovnou 192 záznamů = dost
+historie). Volání s méně záznamy vrátí `"prediction_made": false` a hlášku
+o nedostatku historie.
+
+**4. Volitelně nahlédněte do Influxu:** `http://localhost:8086`, přihlásit
+se `admin` / `changeme123` (z `docker-compose.yml`), Data Explorer → bucket
+`predikce` → measurementy `skutecnost` a `predikce`.
+
+**5. Sledování logů, pokud něco nesedí:**
+```bash
+docker-compose logs -f ingest
+docker-compose logs -f predikce-api
+```
+
+**6. Úklid po dokončení testu:**
+```bash
+docker-compose down -v          # zastaví + smaže kontejnery A volume (i data v Influxu)
+docker image rm predikce-api predikce-ingest influxdb:2   # smaže i postavené/stažené images
+```
+`docker-compose down` bez `-v` by nechal volume `influxdb_data` ležet — pro
+"jen na zkoušku, pak smazat" je potřeba `-v`, ať nezůstane nic po sobě.
+
 ## Co ještě chybí / je potřeba doladit (otevřené otázky)
 
 - **Kdo a jak volá `POST /ingest`?** Zatím to v projektu nikde není
@@ -106,11 +173,9 @@ cd prediction_final/kontejner
   15 min? dávka za více hodin najednou po výpadku?). Formát requestu je
   stejný jako u `predikce-api` (`readings: [{time, value_kW}]`, čas musí
   být UTC).
-- **Přístupová práva k Dockeru:** na tomto stroji `docker` vyžaduje `sudo`
-  (uživatel není v `docker` skupině) a chybí `docker compose` plugin —
-  bude potřeba `sudo apt install docker-compose-plugin` (nebo přidat
-  uživatele do skupiny `docker`: `sudo usermod -aG docker $USER`, pak nové
-  přihlášení).
+- **Přístupová práva k Dockeru:** pokud uživatel není v `docker` skupině,
+  `docker`/`docker-compose` vyžadují `sudo` u každého příkazu — viz
+  "Instalace" výš, sekce s `usermod -aG docker`.
 - **Produkční tajemství:** Influx token/heslo v `docker-compose.yml` jsou
   vývojové placeholdery — pro ostrý provoz patří do `.env` souboru (mimo
   git) nebo secret manageru, ne natvrdo v compose souboru.
