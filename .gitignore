@@ -1,9 +1,3 @@
 data/
 UKOL.md
 .claude/
-production/db/db_config.ini
-production/db/*.log
-production/db/db_out.txt
-production/db/*_15min.csv
-production/db/*_1min.csv
-production/db/denne.log
