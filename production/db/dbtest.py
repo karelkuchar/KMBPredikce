@@ -48,7 +48,7 @@ def main():
         out(f"  nejnovejsi zaznam v DB: {newest:%Y-%m-%d %H:%M} UTC = {newest.astimezone(tz):%d.%m. %H:%M} mistne"
             f" (stari dat {(now - newest).total_seconds() / 3600:.1f} h)")
 
-        read_from = to_ms(newest) - max(DNI, db.PREDIKCE_HISTORIE_DNI) * 86400000
+        read_from = (to_ms(newest) - max(DNI, db.PREDIKCE_HISTORIE_DNI) * 86400000) // 900000 * 900000  # cele 15min okno
         windows, n_rec = db.aggregate_15min(db.read_records(cur, read_from, out))
     out(f"  nacteno {n_rec} 1min zaznamu -> {len(windows)} uplnych 15min oken")
     if not windows:
