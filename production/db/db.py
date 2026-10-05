@@ -749,13 +749,34 @@ def predict_24h(times_utc, values):
     return future, alpha * p_xgb + (1 - alpha) * p_naive, meta
 
 
+def forecast_from_windows(windows, pred_from, out):
+    """15min okna (z aggregate_15min) -> 24h predikce z oken >= pred_from.
+    Vraci (casy UTC, hodnoty, metadata modelu, pouzita historie) nebo None."""
+    import numpy as np
+    import pandas as pd
+
+    epoch = pd.Timestamp("2000-01-01", tz="UTC")
+    ser = pd.Series({epoch + pd.Timedelta(milliseconds=w): r.get("Avg.3P[kW]", np.nan)
+                     for w, r in windows.items() if w >= pred_from}, dtype=float)
+    if ser.dropna().empty:
+        out(f"  !! predikce se NEDELA: za poslednich {PREDIKCE_HISTORIE_DNI} dni pred nejnovejsim zaznamem nejsou data")
+        return None
+    ser = ser.reindex(pd.date_range(ser.index[0], ser.index[-1], freq="15min"))
+    ser = ser.interpolate(limit=MAX_MEZERA_KROKU, limit_area="inside")
+    gaps = ser.isna().to_numpy()
+    tail = ser.iloc[np.where(gaps)[0][-1] + 1:] if gaps.any() else ser  # souvisly konec bez delsich mezer
+    if len(tail) < MIN_HISTORIE_KROKU:
+        out(f"  !! predikce se NEDELA: souvisle historie jen {len(tail)} kroku "
+            f"(potreba {MIN_HISTORIE_KROKU} = 48h, delsi mezera v datech?)")
+        return None
+    times, preds, meta = predict_24h(tail.index, tail.to_numpy())
+    return times, preds, meta, tail
+
+
 # ---------------------------------------------------------------- denni beh
 
 def denne(cur, out):
     from datetime import datetime, timezone
-
-    import numpy as np
-    import pandas as pd
 
     icfg = load_config("influx", ("url", "org", "token", "bucket_history", "bucket_forecast"))
     cur.execute("SELECT measName FROM SmpMeasNameDB WHERE Id = ?", MEAS_ID)
@@ -793,20 +814,10 @@ def denne(cur, out):
     out(f"  historie: zapsano {len(lines)} 15min oken do bucketu '{icfg['bucket_history']}'")
 
     # 4) predikce z poslednich PREDIKCE_HISTORIE_DNI dni
-    ser = pd.Series({pd.Timestamp(epoch) + pd.Timedelta(milliseconds=w): r.get("Avg.3P[kW]", np.nan)
-                     for w, r in windows.items() if w >= pred_from}, dtype=float)
-    if ser.dropna().empty:
-        out(f"  !! predikce se NEDELA: za poslednich {PREDIKCE_HISTORIE_DNI} dni pred nejnovejsim zaznamem nejsou data")
+    res = forecast_from_windows(windows, pred_from, out)
+    if res is None:
         return
-    ser = ser.reindex(pd.date_range(ser.index[0], ser.index[-1], freq="15min"))
-    ser = ser.interpolate(limit=MAX_MEZERA_KROKU, limit_area="inside")
-    gaps = ser.isna().to_numpy()
-    tail = ser.iloc[np.where(gaps)[0][-1] + 1:] if gaps.any() else ser  # souvisly konec bez delsich mezer
-    if len(tail) < MIN_HISTORIE_KROKU:
-        out(f"  !! predikce se NEDELA: souvisle historie jen {len(tail)} kroku "
-            f"(potreba {MIN_HISTORIE_KROKU} = 48h, delsi mezera v datech?)")
-        return
-    times, preds, meta = predict_24h(tail.index, tail.to_numpy())
+    times, preds, meta, tail = res
     t0 = tail.index[-1]
     tag = f"predikce,meter={lp_escape(meter, '=')},predikce_od={t0:%Y-%m-%dT%H:%MZ}"
     lines = [f"{tag} {lp_escape('Avg.3P[kW]', '=')}={float(v)!r} {int(t.timestamp())}" for t, v in zip(times, preds)]

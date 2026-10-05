@@ -1,3 +1,4 @@
 data/
 UKOL.md
 .claude/
+production/db/dbtest_*
