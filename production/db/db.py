@@ -38,7 +38,7 @@ MEAS_ID = 3     # SmpMeasNameDB.Id - 3 = T12 P1.1
 # denne
 MODEL_DIR = HERE / "model" if (HERE / "model").exists() else HERE.parent / "model"
 OD_HISTORIE = None          # prvni beh (prazdny bucket): "2025-01-01" = historie od tohoto dne (UTC), None = vse z DB
-PREPSAT_DNI = 1             # kazdy beh znovu zapise poslednich N dni historie (doplni okna, ktera byla minule neuplna)
+PREPSAT_DNI = 10            # kazdy beh znovu zapise poslednich N dni historie (doplni okna, ktera byla minule neuplna)
 PREDIKCE_HISTORIE_DNI = 8   # kolik dni historie dostane model (lag_1week potrebuje 7 dni)
 MIN_HISTORIE_KROKU = 192    # min. 48h souvisle historie, jinak se predikce nedela (stejne jako API)
 MAX_MEZERA_KROKU = 24       # mezery do 6h se interpoluji (stejne jako pri treninku)
