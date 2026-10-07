@@ -28,7 +28,7 @@ LOG_PATH = HERE / "db_freetds.log"
 DEBUG = False   # True = zapise podrobny FreeTDS log do db_freetds.log (pri problemech s pripojenim)
 
 # co se ma udelat:
-#   "denne"   - (spousti cron 1x denne) nova data z MS SQL -> 15min historie + 24h predikce -> InfluxDB
+#   "denne"   - (spousti cron kazdou hodinu) nova data z MS SQL -> 15min historie + 24h predikce -> InfluxDB
 #   "export"  - vytahne data mista MEAS_ID z binarniho archivu do CSV (15min, format pro model)
 #   "prehled" - tabulky, sloupce, ukazkove radky cele databaze
 #   "archiv"  - rozbor binarniho archivu jednoho mericiho mista (MEAS_ID)
